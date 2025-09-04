@@ -1,0 +1,173 @@
+﻿@model MVCAssignment.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<body style="background:linear-gradient(200deg,#e0e0d1,#b8b894);">
+
+
+    <h1>Edit</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <label asp-for="ProductId" class="control-label"></label>
+
+                <div class="input-group mb-3">
+                   @* <span class="input-group-text" id="basic-addon1">P-</span>*@
+                    <input readonly type="text" asp-for="ProductId" class="form-control" placeholder="Example(P-0001)" aria-label="Username" aria-describedby="basic-addon1">
+                    <span asp-validation-for="ProductId" class="text-danger">@ViewBag.Msg</span>
+
+                </div>
+
+
+                @*            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>*@
+
+                <div class="form-group">
+                    <label asp-for="ProductName" class="control-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger">@ViewBag.ErrorName</span>
+
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductImage" class="control-label"></label>
+                    <input asp-for="ProductImage" class="form-control" />
+                    <span asp-validation-for="ProductImage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col">
+                            <label asp-for="ProductOriPrice" class="control-label"></label>
+                            <div class="col">
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">RM</span>
+                                    <input onkeyup="CheckOriPrice(this.value)" type="number" asp-for="ProductOriPrice" class="form-control" placeholder="Example(9.99)" aria-label="Username" aria-describedby="basic-addon1" />
+
+                                </div>
+                                <span asp-validation-for="ProductOriPrice" class="text-danger" id="OriPriceErrorMsg">@ViewBag.OriPriceErrorMsg</span>
+                                <span id="OriPriceErrorMsg" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <label asp-for="ProductDisPrice" class="control-label"></label>
+
+                            <div class="col">
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">RM</span>
+                                    <input type="text" onkeyup="CheckDisPrice(this.value)" asp-for="ProductDisPrice" class="form-control" placeholder="Example(9.99)" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                <span asp-validation-for="ProductDisPrice" class="text-danger" id="DisPriceErrorMsg">@ViewBag.DisPriceErrorMsg</span>
+                                <span id="DisPriceErrorMsg" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                @*            <div class="form-group">
+                <label asp-for="ProductDescription" class="control-label"></label>
+                <input asp-for="ProductDescription" class="form-control" />
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                </div>*@
+
+                <div class="form-group">
+
+
+                    <div class="input-group">
+                        <span class="input-group-text">Description</span>
+                        <textarea asp-for="ProductDescription" class="form-control" aria-label="With textarea"></textarea>
+
+
+                    </div>
+                    <span asp-validation-for="ProductDescription" class="text-danger">@ViewBag.ErrorDescription</span>
+                </div>
+                </br>
+                <div class="form-group">
+                    <input id="submitbtn" type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="ProductList" class="btn btn-success">Back</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+    </div>
+
+
+    <script>
+        var o="";
+        function CheckOriPrice(oriPrice) {
+            var errorMsg = document.getElementById('OriPriceErrorMsg')
+            if (parseInt(oriPrice) <= 0) {
+                o = oriPrice;
+                errorMsg = "Ori Price cannot less than 0"
+            }
+            else {
+                errorMsg = ""
+            }
+            CheckDisableBtn();
+
+        }
+        function CheckDisPrice(disPrice) {
+            var emsg = document.getElementById('DisPriceErrorMsg')
+            if (parseInt(disPrice) <= 0 ) {
+                emsg = "Dis Price cannot less than 0";
+            }
+  
+            else {
+                emsg = "";
+            }
+            CheckDisableBtn();
+        }
+
+        function CheckDisableBtn() {
+            //input (value)
+            //else innerhtml
+            document.getElementById('submitbtn').disabled = false;
+
+            var checkOriprice = document.getElementById('ProductOriPrice').value
+            var checkDisprice = document.getElementById('ProductDisPrice').value
+            if (checkOriprice <= 0) {
+                document.getElementById('submitbtn').disabled = true;
+            }
+            if (checkDisprice <= 0 || checkDisprice > checkOriprice) {
+                document.getElementById('submitbtn').disabled = true;
+
+            }
+        }
+
+        function Error() {
+            var name = document.getElementById('ErrorName').value;
+            var errormsg = document.getElementById('errormsgname').innerHTML;
+            if (name == "") {
+                errormsg = "Please Insert Product Name";
+            }
+            else {
+                errormsg = ""
+            }
+        }
+
+
+
+    </script>
+</body>

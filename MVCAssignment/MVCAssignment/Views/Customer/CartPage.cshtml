@@ -1,0 +1,652 @@
+﻿@model IEnumerable<MVCAssignment.ViewModels.CartViewModel>
+
+@{
+    ViewData["Title"] = "CartPage";
+    if (ViewBag.loginmenu == "x")
+    {
+        Layout = "~/Views/Shared/CustomerMenuBar.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/CustomerAfterLoginMenuBag.cshtml";
+
+    }
+}
+
+
+@*<h1>CartPage</h1>
+*@
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<head>
+    <style>
+        .paybutton {
+            background: black;
+            color: white;
+            text-decoration: none;
+            text-transform：uppercase;
+            font-size: 30px;
+            letter-spacing: 0.1em;
+            padding: 15px 90px;
+            transition: 0.5s;
+        }
+
+            .paybutton:hover {
+                letter-spacing: 0.25em;
+                color: orange;
+            }
+
+        #cart {
+            max-width: 1440px;
+            padding-top: 60px;
+            margin: auto;
+        }
+
+        .form div {
+            margin-bottom: 0.4em;
+        }
+
+        .cartItem {
+            --bs-gutter-x: 1.5rem;
+        }
+
+        .cartItemQuantity,
+        .proceed {
+            background: #ffe7b3;
+        }
+
+        .items {
+            padding-right: 30px;
+        }
+
+        #btn-checkout {
+            min-width: 100%;
+        }
+
+        /* stasysiia.com */
+        @@import url("https://fonts.googleapis.com/css2?family=Exo&display=swap");
+
+        body {
+            background-color: #fff;
+            font-family: "Exo", sans-serif;
+            font-size: 22px;
+            margin: 0;
+            padding: 0;
+            color: #111111;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            color: #0e1111;
+            text-decoration: none;
+        }
+
+        .btn-check:focus + .btn-primary,
+        .btn-primary:focus {
+            color: #fff;
+            background-color: #111;
+            border-color: transparent;
+            box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+        }
+
+        button:hover,
+        .btn:hover {
+            box-shadow: 5px 5px 7px #c8c8c8, -5px -5px 7px white;
+        }
+
+        button:active {
+            box-shadow: 2px 2px 2px #c8c8c8, -2px -2px 2px white;
+        }
+
+        /*PREVENT BROWSER SELECTION*/
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: none;
+        }
+        /*main*/
+        main:before {
+            /*            content: "";
+                                                                            display: block;
+                                                                            height: 88px;*/
+        }
+
+        h1 {
+            font-size: 2.4em;
+            font-weight: 600;
+            letter-spacing: 0.15rem;
+            text-align: center;
+            margin: 30px 6px;
+        }
+
+        h2 {
+            color: rgb(37, 44, 54);
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+
+        h3 {
+            border-bottom: solid 2px #000;
+        }
+
+        h5 {
+            padding: 0;
+            font-weight: bold;
+            color: #92afcc;
+        }
+
+        p {
+            color: #333;
+            font-family: "Roboto", sans-serif;
+            margin: 0.6em 0;
+        }
+
+        h1,
+        h2,
+        h4 {
+            text-align: center;
+            padding-top: 16px;
+        }
+        /* yukito bloody */
+        .back {
+            position: relative;
+            top: -30px;
+            font-size: 16px;
+            margin: 10px 10px 3px 15px;
+        }
+
+        .inline {
+            display: inline-block;
+        }
+
+        .shopnow,
+        .contact {
+            background-color: #000;
+            padding: 10px 20px;
+            font-size: 30px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+            .shopnow:hover {
+                text-decoration: none;
+                color: white;
+                background-color: #ffc64d;
+            }
+            /* for button animation*/
+            .shopnow span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: all 0.5s;
+            }
+
+                .shopnow span:after {
+                    content: url("https://badux.co/smc/codepen/caticon.png");
+                    position: absolute;
+                    font-size: 30px;
+                    opacity: 0;
+                    top: 2px;
+                    right: -6px;
+                    transition: all 0.5s;
+                }
+
+            .shopnow:hover span {
+                padding-right: 25px;
+            }
+
+                .shopnow:hover span:after {
+                    opacity: 1;
+                    top: 2px;
+                    right: -6px;
+                }
+
+        .ma {
+            margin: auto;
+        }
+
+        .price {
+            color: slategrey;
+            font-size: 2em;
+        }
+
+        #mycart {
+            min-width: 90px;
+        }
+
+        #cartItems {
+            font-size: 17px;
+        }
+
+        #product .container .row .pr4 {
+            padding-right: 15px;
+        }
+
+        #product .container .row .pl4 {
+            padding-left: 15px;
+        }
+
+        img {
+            display: block;
+            max-width: 230px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+        }
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body style="background:linear-gradient(200deg,#ffd480,#ffeb99);">
+    <section style="padding-bottom:100px;">
+    <main id="cart" style="max-width:960px">
+        @*        <div class="back"><a href="#">&#11178; shop</a></div>*@
+        <h1>Your Cart</h1>
+        </br>
+        <div class="container-fluid">
+            
+
+            <div class="row align-items-start">
+
+              
+
+                
+                <div class="col-12 col-sm-8 items">
+                    <!--1-->
+                    @if (ViewBag.pendingpage == "x")
+                    {
+                        <h1>Cart Empty</h1>
+                    }
+                    @foreach (var pair in Model.Where(e => e.Status == "Cart Pending"))
+                    {
+
+                        <div class="cartItem row align-items-start">
+                            <div class="col-3 mb-2">
+                                <img class="w-100" src="@pair.ProductImage" alt="art image">
+                            </div>
+                            <div class="col-5 mb-2">
+                                <h6 class="">@pair.ProductName</h6>
+                                <p class="pl-1 mb-0">20 x 24</p>
+                                <p class="pl-1 mb-0">@pair.ProductDescription</p>
+                            </div>
+                            <div class="col-2">
+
+                                <a class="btn-success" style="text-decoration:none;color:white;" href="~/Customer/AddQty?CartId=@pair.CartId">+</a>
+                                @*<button class="btn-success"><a style="text-decoration:none;color:white;" href="~/Customer/AddQty?CartId=@pair.CartId">+</a></button>*@
+
+                                <span class="cartItemQuantity p-1 text-center">@pair.Quantity</span>
+
+                                <a id="qty" class="btn-warning" style="text-decoration:none;color:white;" href="~/Customer/MinusQty?CartId=@pair.CartId">-</a>
+                                @*<button class="btn-warning"><a style="text-decoration:none;color:white;" href="~/Customer/MinusQty?CartId=@pair.CartId">-</a></button>*@
+                                @* <button asp-action="AddQty" asp-controller="Customer" asp-route-CartId="@pair.CartId" class="btn btn-warning">-</button>*@
+
+                            </div>
+                            <div class="col-2">
+                                <p id="cartItem1Price">RM @pair.ProductDisPrice</p>
+                            </div>
+                        </div>
+                        <hr>
+
+                    }
+
+                </div>
+                
+
+                <div class="col-12 col-sm-4 p-3 proceed form">
+                    <div class="row m-0">
+                        <div class="col-sm-8 p-0">
+                            <h6>Subtotal</h6>
+                        </div>
+                        <div class="col-sm-4 p-0">
+                            <p id="subtotal">RM @(Model.Where(e => e.Status == "Cart Pending").Sum(e => e.Quantity * e.ProductDisPrice))</p>
+                            @*<p id="subtotal">RM @ViewBag.Subtotal))</p>*@
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-sm-8 p-0 ">
+                            <h6>Tax (6%)</h6>
+                        </div>
+                        <div class="col-sm-4 p-0">
+                            <p id="tax">RM @(Model.Where(e => e.Status == "Cart Pending").Sum(e => e.Quantity * e.ProductDisPrice * 0.06))</p>
+                            @*<p id="tax">RM @ViewBag.Tax</p>*@
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mx-0 mb-2">
+                        <div class="col-sm-8 p-0 d-inline">
+                            <h5>Total</h5>
+                        </div>
+                        <div class="col-sm-4 p-0">
+
+                            <p id="total">RM @(Model.Where(e => e.Status == "Cart Pending").Sum(e => e.Quantity * e.ProductDisPrice * 1.06))</p>
+
+                            @*
+                            <p id="total">RM @ViewBag.GrandTotal.ToString("0.00")</p>*@
+                        </div>
+                    </div>
+
+                    @{
+                        string CartIdList = "";
+
+                        foreach (var item in Model.Where(e => e.Status == "Cart Pending"))
+                        {
+                            CartIdList += $"{item.CartId}|";//"1|2|4 "
+                        }
+                    }
+
+
+                     @if (ViewBag.pendingpage!="x")
+                    {
+                        
+                        <a href="~/Payment/PaymentCheckoutPage?Amount=@Model.Where(e=>e.Status=="Cart Pending").Sum(x=>(x.Quantity*x.ProductDisPrice))&CartIdList=@CartIdList">
+                            <button id="btn-checkout" class="shopnow">
+                                <span>Checkout</span>
+                            </button>
+                        </a>
+                    }
+                    else  @if ((Model.Where(e => e.Status == "Cart Pending"))==null)
+                    {
+
+                    }
+
+                </div>
+
+
+            </div>
+    </main>
+
+    @if (@ViewBag.processingpage != "x")
+    {
+        <main id="cart" style="max-width:960px;padding-bottom:100px;">
+
+            <div class="container-fluid">
+                <div class="row align-items-start">
+                    <div class="col-12 col-sm-8 items">
+                        <div style="background-color:#e6e6e6;padding:30px 10px;border:2px solid #ffaa00;">
+
+                            @{
+
+                                string CartIdList2 = "";
+
+                                foreach (var item in Model.Where(e => e.Status == "Payment Processing"))
+                                {
+                                    CartIdList2 += $"{item.CartId}|";//"1|2|4 "
+
+                                }
+
+                            }
+
+                            <a style="margin-left:350px;" class="paybutton" href="~/Payment/PaymentCheckoutPage?Amount=@Model.Where(e=>e.Status=="Payment Processing").Sum(x=>(x.Quantity*x.ProductDisPrice))&CartIdList=@CartIdList2">
+                                PAY
+                                @*                        <button id="btn-checkout" class="shopnow">
+                            <span>Pay</span>
+                            </button>*@
+                            </a>
+                            <div style="padding:25px 0px;">
+                                @foreach (var pair in Model.Where(e => e.Status == "Payment Processing"))
+                                {
+
+
+                                    <div class="cartItem row align-items-start">
+                                        <div class="col-3 mb-2">
+                                            <img class="w-100" src="@pair.ProductImage" alt="art image">
+                                        </div>
+                                        <div class="col-5 mb-2">
+                                            <h6 class="">@pair.ProductName</h6>
+                                            <p hidden name="productid" class="pl-1 mb-0">@pair.Product_Id</p>
+
+                                            <p class="pl-1 mb-0">20 x 24</p>
+                                            <p class="pl-1 mb-0">@pair.ProductDescription</p>
+                                        </div>
+                                        <div class="col-2">
+
+                                            @* <a class="btn-success" style="text-decoration:none;color:white;" href="~/Customer/AddQty?CartId=@pair.CartId">+</a>*@
+                                            @*<button class="btn-success"><a style="text-decoration:none;color:white;" href="~/Customer/AddQty?CartId=@pair.CartId">+</a></button>*@
+
+                                            <span class="cartItemQuantity p-1 text-center">@pair.Quantity</span>
+
+                                            @*<a class="btn-warning" style="text-decoration:none;color:white;" href="~/Customer/MinusQty?CartId=@pair.CartId">-</a>*@
+                                            @*<button class="btn-warning"><a style="text-decoration:none;color:white;" href="~/Customer/MinusQty?CartId=@pair.CartId">-</a></button>*@
+                                            @* <button asp-action="AddQty" asp-controller="Customer" asp-route-CartId="@pair.CartId" class="btn btn-warning">-</button>*@
+
+                                        </div>
+                                        <div class="col-2">
+                                            <p id="cartItem1Price">RM @pair.ProductDisPrice</p>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                }
+                            </div>
+                    </div>
+                </div>
+                @*                <div class="col-12 col-sm-4 p-3 proceed form" style="margin:100px 0px;">
+
+
+                </div>*@
+            </div>
+
+        </div>
+    </main>
+
+    }
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <div style="width:100%;">
+
+        <footer style="background-color: #deded5;">
+            <div class="container p-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">footer content</h5>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                            molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+                            voluptatem veniam, est atque cumque eum delectus sint!
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">links</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-1">
+                                <a href="#!" style="color: #4f4f4f;">Frequently Asked Questions</a>
+                            </li>
+                            <li class="mb-1">
+                                <a href="#!" style="color: #4f4f4f;">Delivery</a>
+                            </li>
+                            <li class="mb-1">
+                                <a href="#!" style="color: #4f4f4f;">Pricing</a>
+                            </li>
+                            <li>
+                                <a href="#!" style="color: #4f4f4f;">Where we deliver?</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="mb-1" style="letter-spacing: 2px; color: #818963;">opening hours</h5>
+                        <table class="table" style="color: #4f4f4f; border-color: #666;">
+                            <tbody>
+                                <tr>
+                                    <td>Mon - Fri:</td>
+                                    <td>8am - 9pm</td>
+                                </tr>
+                                <tr>
+                                    <td>Sat - Sun:</td>
+                                    <td>8am - 1am</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+
+    </div>
+    <!-- End of .container -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    @*    <script>
+    function alerqty()
+    {
+    var qty = document.getElementById('qty').innerHTML
+    if(parseInt(qty)==0)
+    {
+    alert('This product has been removed.')
+    }
+    }
+    </script>*@
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IsSelected)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductOriPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDisPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSelected)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductOriPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDisPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CartId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CartId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CartId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@
+
+
+<footer class="container">
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>

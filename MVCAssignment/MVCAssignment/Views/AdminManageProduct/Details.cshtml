@@ -1,0 +1,66 @@
+﻿@model MVCAssignment.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<body style="background:linear-gradient(200deg,#e0e0d1,#cdcab9)">
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+        <dd class="col-sm-1">
+            @*<img src="@Html.DisplayFor(model => model.UserImage)">*@
+            <img src="@Html.DisplayFor(model => model.ProductImage)" style="border: 1px solid white;border-radius:50px" width="100px" height="100px">
+        </dd>
+        <dd class="col-sm-11">
+
+        </dd>
+        </dl>
+        <dl class="row" style="background:linear-gradient(200deg,#c3c388,#e5e5cc);padding:20px 0px">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductImage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductImage)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductOriPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductOriPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductDisPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductDisPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    <a class="btn btn-success"asp-action="ProductList">Back</a>
+</div>
+</body>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MVCAssignment.Models.Product>
+
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Product List</h1>
+
+<body style="background:linear-gradient(200deg,#e0e0d1,#b8b894)">
+    <p>
+        <a class="btn btn-success" asp-action="CreateProduct">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductOriPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductDisPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductDescription)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        <img src="@item.ProductImage" width="100px" height="100px" />
+                        @*@Html.DisplayFor(modelItem => item.ProductImage)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductOriPrice)
+                    </td>
+
+                    @if (item.ProductDisPrice == item.ProductOriPrice)
+                    {
+                        <td>
+                            No Discount
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.ProductDisPrice)
+                        </td>
+                    }
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit","Edit",new{Id=item.Id}) |
+                        @Html.ActionLink("Details","Details",new{ Id=item.Id}) |
+                        @Html.ActionLink("Delete","Delete",new{Id=item.Id})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</body>

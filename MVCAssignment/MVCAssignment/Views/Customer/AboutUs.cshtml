@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewData["Title"] = "AboutUs";
+    if (ViewBag.loginmenu == "x")
+    {
+        Layout = "~/Views/Shared/CustomerMenuBar.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/CustomerAfterLoginMenuBag.cshtml";
+
+    }
+}
+
+<style>
+    .about {
+        padding: 130px 0;
+    }
+
+        .about .heading h2 {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+
+            .about .heading h2 span {
+                color: #F24259;
+            }
+
+        .about .heading p {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #999999;
+            margin: 20px 0 60px;
+            padding: 0;
+        }
+
+        .about h3 {
+            font-size: 25px;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+
+        .about p {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #999999;
+            margin: 20px 0 15px;
+            padding: 0;
+        }
+
+        .about h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 8px 0;
+        }
+
+            .about h4 i {
+                color: #F24259;
+                margin-right: 10px;
+            }
+</style>
+<body>
+<section class="about" id="about">
+    <div class="container">
+        <div class="heading text-center">
+            <h2>
+                About
+                <span>Us</span>
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                <br>
+                incididunt ut labore et dolore magna aliqua.
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="https://i.ibb.co/qpz1hvM/About-us.jpg" alt="about" class="img-fluid" width="100%">
+            </div>
+            <div class="col-lg-6">
+                <h3>Lorem ipsum dolor sit amet, consectetur </h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>
+                            <i class="far fa-star"></i>Awesome Design
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>
+                            <i class="far fa-star"></i>
+                            Creative Design
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>
+                            <i class="far fa-star"></i>Better Client Service
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>
+                            <i class="far fa-star"></i>
+                            Digital Marketing & Branding
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>
+                            <i class="far fa-star"></i>Creative Design
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>
+                            <i class="far fa-star"></i>
+                            Speed And Flexibility
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Remove the container if you want to extend the Footer to full width. -->
+<div style="width:100%;">
+
+    <footer style="background-color: #deded5;">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">footer content</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+                        voluptatem veniam, est atque cumque eum delectus sint!
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1">
+                            <a href="#!" style="color: #4f4f4f;">Frequently Asked Questions</a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#!" style="color: #4f4f4f;">Delivery</a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#!" style="color: #4f4f4f;">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="#!" style="color: #4f4f4f;">Where we deliver?</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-1" style="letter-spacing: 2px; color: #818963;">opening hours</h5>
+                    <table class="table" style="color: #4f4f4f; border-color: #666;">
+                        <tbody>
+                            <tr>
+                                <td>Mon - Fri:</td>
+                                <td>8am - 9pm</td>
+                            </tr>
+                            <tr>
+                                <td>Sat - Sun:</td>
+                                <td>8am - 1am</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+</div>
+<!-- End of .container -->
+</body>
